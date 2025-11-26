@@ -1,0 +1,10 @@
+Django>=4.2
+gunicorn
+psycopg2-binary
+dj-database-url
+whitenoise
+django-bootstrap-v5
+djangorestframework
+reportlab
+requests
+beautifulsoup4
