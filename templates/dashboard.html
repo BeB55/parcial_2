@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+<div class="card mb-4">
+  <div class="card-body">
+    {% if user.is_authenticated %}
+      <p class="mb-0">Estás logueado como <strong>{{ user.username }}</strong></p>
+      <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-sm mt-2">Cerrar sesión</a>
+    {% else %}
+      <p class="mb-0">No estás logueado.</p>
+      <a href="{% url 'login' %}" class="btn btn-outline-success btn-sm mt-2">Iniciar sesión</a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-primary text-white">
+    Agregar alumno
+  </div>
+  <div class="card-body">
+    <form method="post" class="row g-3">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header bg-secondary text-white">
+    Mis alumnos
+  </div>
+  <div class="card-body">
+    <table class="table table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Curso</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for alumno in alumnos %}
+        <tr>
+          <td>{{ alumno.nombre }}</td>
+          <td>{{ alumno.apellido }}</td>
+          <td>{{ alumno.curso }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="3" class="text-center text-muted">No hay alumnos registrados.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
