@@ -1,11 +1,14 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
 {% block content %}
-<div class="container mt-5">
-  <h2>Login</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success">Ingresar</button>
-  </form>
+<div class="card mx-auto" style="max-width: 400px;">
+  <div class="card-header bg-primary text-white">Iniciar sesión</div>
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+    </form>
+  </div>
 </div>
 {% endblock %}
