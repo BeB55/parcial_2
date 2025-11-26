@@ -4,10 +4,7 @@ class ScraperForm(forms.Form):
     palabra = forms.CharField(
         label="Palabra clave",
         max_length=100,
-        widget=forms.TextInput(attrs={
-            "class": "form-control",
-            "placeholder": "Ej: Python, Django, algoritmos"
-        })
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Ej: Python, algoritmos"})
     )
     enviar_correo = forms.BooleanField(
         label="Enviar resultados por correo",
