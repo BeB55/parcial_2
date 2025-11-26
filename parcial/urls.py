@@ -9,5 +9,5 @@ urlpatterns = [
     path('cuentas/', include('apps.cuentas.urls')),
     path('', dashboard, name='home'),
     path('alumnos/', include('apps.alumnos.urls')),
-    path("material/", include("scraper.urls")),
+    path("material/", include("apps.scraper.urls")),
 ]
