@@ -27,6 +27,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.cuentas',
+    'apps.tareas',
+    'apps.galeria',
+    'apps.informes',
+    'apps.contacto',
+    'apps.scraper',
+    'apps.shop',
+    'apps.estadisticas',
+    'apps.api_libros',
 ]
 
 MIDDLEWARE = [
@@ -64,7 +73,9 @@ WSGI_APPLICATION = 'parcial.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3'  
+    )
 }
 
 

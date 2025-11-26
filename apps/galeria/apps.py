@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ApiLibrosConfig(AppConfig):
+class GaleriaConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'api_libros'
+    name = 'apps.galeria'
