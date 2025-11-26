@@ -1,53 +1,21 @@
-{% extends "base.html" %}
-{% block title %}Buscar recursos{% endblock %}
-{% block content %}
+<form method="post">
+  {% csrf_token %}
+  <input type="text" name="keyword" class="form-control" placeholder="Palabra clave">
+  <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+</form>
 
-<div class="card mb-4">
-  <div class="card-header bg-info text-white">Buscar recursos educativos</div>
-  <div class="card-body">
-    <form method="post" class="row g-3">
-      {% csrf_token %}
-      <div class="col-12">
-        {{ form.palabra.label_tag }}
-        {{ form.palabra }}
-      </div>
-      <div class="col-12 form-check">
-        {{ form.enviar_correo }}
-        <label class="form-check-label" for="{{ form.enviar_correo.id_for_label }}">
-          Enviar resultados por correo
-        </label>
-      </div>
-      <div class="col-12">
-        <button type="submit" class="btn btn-primary">Buscar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-{% if resultados %}
-<div class="card">
-  <div class="card-header bg-secondary text-white">Resultados</div>
-  <div class="card-body">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Título</th>
-          <th>Resumen</th>
-          <th>Link</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for r in resultados %}
-        <tr>
-          <td>{{ r.titulo }}</td>
-          <td>{{ r.resumen|safe }}</td>
-          <td><a href="{{ r.url }}" target="_blank">Abrir</a></td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-</div>
+{% if results %}
+<table class="table mt-4">
+  <thead>
+    <tr><th>Título</th><th>Link</th></tr>
+  </thead>
+  <tbody>
+    {% for r in results %}
+    <tr>
+      <td>{{ r.titulo }}</td>
+      <td><a href="{{ r.url }}" target="_blank">{{ r.url }}</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endif %}
-
-{% endblock %}

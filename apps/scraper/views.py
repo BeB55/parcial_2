@@ -1,36 +1,24 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.core.mail import EmailMessage
+from django.core.mail import send_mail
 import os
+from .utils import scrape_python_docs
 
-from .forms import ScraperForm
-from .utils import scrape_palabra
-
-@login_required
 def scraper_view(request):
-    resultados = []
-    form = ScraperForm(request.POST or None)
+    results = []
+    if request.method == "POST":
+        keyword = request.POST.get("keyword")
+        results = scrape_python_docs(keyword)
 
-    if request.method == "POST" and form.is_valid():
-        palabra = form.cleaned_data["palabra"]
-        enviar_correo = form.cleaned_data["enviar_correo"]
+        # Enviar por correo
+        cuerpo = "Resultados del scraping:\n\n"
+        for r in results:
+            cuerpo += f"- {r['titulo']}: {r['url']}\n"
 
-        resultados = scrape_palabra(palabra)
+        send_mail(
+            subject=f"Resultados del scraping: {keyword}",
+            message=cuerpo,
+            from_email=os.environ.get("DEFAULT_FROM_EMAIL"),
+            recipient_list=[request.user.email],
+        )
 
-        if enviar_correo and resultados:
-            cuerpo = f"Resultados de búsqueda para: {palabra}\n\n"
-            for r in resultados:
-                cuerpo += f"- {r['titulo']}: {r['url']}\n"
-
-            email = EmailMessage(
-                subject=f"Recursos educativos: {palabra}",
-                body=cuerpo,
-                from_email=os.environ.get("DEFAULT_FROM_EMAIL"),
-                to=[request.user.email],
-            )
-            email.send()
-
-    return render(request, "scraper.html", {
-        "form": form,
-        "resultados": resultados
-    })
+    return render(request, "scraper.html", {"results": results})
