@@ -23,6 +23,10 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
             </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'scraper' %}">Recursos educativos</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
             </li>
@@ -39,12 +43,12 @@
     </div>
   </nav>
 
-  <!-- Contenido principal -->
+  
   <div class="container mt-4">
     {% block content %}{% endblock %}
   </div>
 
-  <!-- Bootstrap JS -->
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
