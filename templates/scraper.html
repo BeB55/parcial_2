@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Scraper{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="card-header bg-info text-white">
+    Resultados del Scraper
+  </div>
+  <div class="card-body">
+    <ul class="list-group">
+      {% for r in resultados %}
+        <li class="list-group-item">
+          <a href="{{ r.url }}" target="_blank">{{ r.texto }}</a>
+        </li>
+      {% empty %}
+        <li class="list-group-item text-muted">No se encontraron resultados.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

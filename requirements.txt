@@ -4,3 +4,4 @@ gunicorn
 python-dotenv 
 reportlab       
 dj-database-url
+beautifulsoup4

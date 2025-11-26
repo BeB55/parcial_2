@@ -1,11 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect
 from django.core.mail import EmailMessage
 from reportlab.pdfgen import canvas
 from io import BytesIO
 from .models import Alumno
 import os
+from .utils import scrape_python_docs
 
 @login_required
 def enviar_pdf(request, alumno_id):
@@ -34,3 +34,9 @@ def enviar_pdf(request, alumno_id):
     email.send()
 
     return redirect("dashboard")
+
+
+@login_required
+def scraper_view(request):
+    resultados = scrape_python_docs()
+    return render(request, "scraper.html", {"resultados": resultados})
