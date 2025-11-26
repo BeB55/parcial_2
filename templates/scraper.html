@@ -1,20 +1,43 @@
 {% extends "base.html" %}
 {% block title %}Scraper{% endblock %}
 {% block content %}
-<div class="card">
+
+<div class="card mb-4">
   <div class="card-header bg-info text-white">
-    Resultados del Scraper
+    Scraping educativo
   </div>
   <div class="card-body">
-    <ul class="list-group">
-      {% for r in resultados %}
-        <li class="list-group-item">
-          <a href="{{ r.url }}" target="_blank">{{ r.texto }}</a>
-        </li>
-      {% empty %}
-        <li class="list-group-item text-muted">No se encontraron resultados.</li>
-      {% endfor %}
-    </ul>
+    <form method="post" class="row g-3">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Buscar y enviar por correo</button>
+      </div>
+    </form>
   </div>
 </div>
+
+{% if resultados %}
+<div class="card">
+  <div class="card-header bg-secondary text-white">
+    Resultados
+  </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr><th>Título</th><th>Link</th></tr>
+      </thead>
+      <tbody>
+        {% for r in resultados %}
+        <tr>
+          <td>{{ r.texto }}</td>
+          <td><a href="{{ r.url }}" target="_blank">{{ r.url }}</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %}
+
 {% endblock %}
