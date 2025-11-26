@@ -40,6 +40,7 @@
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Curso</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -48,10 +49,15 @@
           <td>{{ alumno.nombre }}</td>
           <td>{{ alumno.apellido }}</td>
           <td>{{ alumno.curso }}</td>
+          <td>
+            <a href="{% url 'enviar_pdf' alumno.id %}" class="btn btn-sm btn-info">
+              📄 PDF
+            </a>
+          </td>
         </tr>
         {% empty %}
         <tr>
-          <td colspan="3" class="text-center text-muted">No hay alumnos registrados.</td>
+          <td colspan="4" class="text-center text-muted">No hay alumnos registrados.</td>
         </tr>
         {% endfor %}
       </tbody>
